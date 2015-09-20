@@ -6,6 +6,8 @@ Description: Simple Bootstrap AJAX eMail Form
 Version: 1.0
 Author: Marc Wensauer
 Author URI: http://marcwensauer.de
+Text Domain: daslicht-contactform
+Domain Path: /languages
 */
 
 /**
@@ -24,7 +26,7 @@ class DaslichtEmailForm
 	function token(){
 		$uid = uniqid();
 		$_SESSION['token'] = $uid;
-		ChromePhp::log('token set: ',$_SESSION['token'] );
+		//ChromePhp::log('token set: ',$_SESSION['token'] );
 		return $uid;
 	}
 
@@ -53,7 +55,7 @@ class DaslichtEmailForm
 <!--  -->			<input required type="email" name="contact_email" class="form-control" id="email" placeholder="Email" >
 					</div>
 					<div class="form-group">
-						<label for="contact_subject" class="control-label">Subject</label>
+						<label for="contact_subject" class="control-label"><?php _e( 'Subject',"daslicht-contactform" ); ?></label>
 						<input required type="text" name="contact_subject"  pattern="[a-zA-Z ]+" class="form-control" id="subject" placeholder="Subject" >
 					</div>
 					<div class="form-group">
@@ -180,15 +182,31 @@ class DaslichtEmailForm
 	    //$path = rtrim("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'/'); // the URL the form is called from
 	}
 
+ 	/**
+ 	 * [daslicht_contactform_addvalidator description]
+ 	 * @return [type] [description]
+ 	 */
+	public function my_plugin_load_plugin_textdomain() {
+		//function my_plugin_load_plugin_textdomain() {
+    	load_plugin_textdomain( 'daslicht-contactform', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+    	ChromePhp::log('lok: ',dirname( plugin_basename( __FILE__ ) ) . '/languages/'  );
+	}
+
 	/**
 	 * [__construct description]
 	 */
 	function __construct( ) {
 		$Object = $this;
-		$test = add_shortcode( 'daslicht_emailform', array( $Object, 'add_daslicht_emailform_shortcode' ) );
-		$b =    add_action( 'wp_enqueue_scripts', array( $Object, 'daslicht_contactform_addvalidator' ) );
+		add_shortcode( 'daslicht_emailform', array( $Object, 'add_daslicht_emailform_shortcode' ) );
+		add_action( 'wp_enqueue_scripts', array( $Object, 'daslicht_contactform_addvalidator' ) );
 		//$i =	add_action( 'wp_ajax_nopriv_serversidefunction', array( $Object, 'serversidefunction' ) );
-		$j =	add_action( 'wp_ajax_serversidefunction', array( $Object, 'sendemail' ) );
+		add_action( 'wp_ajax_serversidefunction', array( $Object, 'sendemail' ) );
+
+		
+		//}
+		add_action( 'plugins_loaded', array( $Object, 'my_plugin_load_plugin_textdomain' ));
+
 
 		 if(!session_id()) {
 	        session_start();
