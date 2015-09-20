@@ -176,7 +176,7 @@ class DaslichtEmailForm
 	        $dataToBePassed = array(
 			    'url' => admin_url( 'admin-ajax.php' )
 			);
-			ChromePhp::log('phpvars ',$dataToBePassed );
+			//ChromePhp::log('phpvars ',$dataToBePassed );
 			wp_localize_script( 'daslicht-validator', 'php_vars', $dataToBePassed );
 
 	    //$path = rtrim("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'/'); // the URL the form is called from
@@ -190,7 +190,7 @@ class DaslichtEmailForm
 		//function my_plugin_load_plugin_textdomain() {
     	load_plugin_textdomain( 'daslicht-contactform', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-    	ChromePhp::log('lok: ',dirname( plugin_basename( __FILE__ ) ) . '/languages/'  );
+    	//ChromePhp::log('lok: ',dirname( plugin_basename( __FILE__ ) ) . '/languages/'  );
 	}
 
 	/**
