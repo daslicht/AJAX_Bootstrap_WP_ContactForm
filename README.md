@@ -2,3 +2,5 @@
 Simple Wordpress Contact Form Plugin
 
 2do: include dependencies
+
+[daslicht_emailform]
