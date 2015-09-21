@@ -56,7 +56,7 @@ class DaslichtEmailForm
 					</div>
 					<div class="form-group">
 						<label for="contact_subject" class="control-label"><?php _e( 'Subject',"daslicht-contactform" ); ?></label>
-						<input required type="text" name="contact_subject"  pattern="[a-zA-Z ]+" class="form-control" id="subject" placeholder="Subject" >
+						<input required type="text" name="contact_subject"  pattern="[a-zA-Z ]+" class="form-control" id="subject" placeholder="<?php _e( 'Subject',"daslicht-contactform" ); ?>" >
 					</div>
 					<div class="form-group">
 						<textarea required class="form-control" rows="10" cols="35" name="contact_message"></textarea>
