@@ -44,22 +44,22 @@ class DaslichtEmailForm
 				</div>
 
 				<!-- eMAIL FORM -->
-				<form id="daslicht-email-form" data-toggle="validator" role="form" action="#" method="POST">
+				<form id="daslicht-email-form" data-toggle="validator" role="form"  method="POST">
 					<input type="hidden" name="token" value="<?php echo $this->token(); ?>">
 					<div class="form-group">
 					    <label for="contact_name" class="control-label">Name</label>
-					    <input required type="text" name="contact_name" pattern="[a-zA-Z0-9 ]+" class="form-control" id="name" placeholder="Name" >
+					    <input  type="text" name="contact_name" pattern="[a-zA-Z0-9 ]+" class="form-control" id="name" placeholder="Name" >
 				  	</div>
 					<div class="form-group">
 						<label for="contact_email" class="control-label">eMail</label>
-<!--  -->			<input required type="email" name="contact_email" class="form-control" id="email" placeholder="Email" >
+<!--  -->			<input  type="email" name="contact_email" class="form-control" id="email" placeholder="Email" >
 					</div>
 					<div class="form-group">
 						<label for="contact_subject" class="control-label"><?php _e( 'Subject',"daslicht-contactform" ); ?></label>
-						<input required type="text" name="contact_subject"  pattern="[a-zA-Z ]+" class="form-control" id="subject" placeholder="<?php _e( 'Subject',"daslicht-contactform" ); ?>" >
+						<input  type="text" name="contact_subject"  pattern="[a-zA-Z ]+" class="form-control" id="subject" placeholder="<?php _e( 'Subject',"daslicht-contactform" ); ?>" >
 					</div>
 					<div class="form-group">
-						<textarea required class="form-control" rows="10" cols="35" name="contact_message"></textarea>
+						<textarea  class="form-control" rows="10" cols="35" name="contact_message"></textarea>
 					</div>
 
 				  <button type="submit" name="contact_submit" class="btn btn-primary pull-right" style="width:100px;height:37px">
@@ -107,12 +107,14 @@ class DaslichtEmailForm
 		//ChromePhp::log('is email',is_email($data["email"]));
 
 		//Check Token
-		if( $_SESSION['token'] === $_POST["token"]  && $_SESSION['token'] != 0   ) {
+		//if( $_SESSION['token'] === $_POST["token"]  && $_SESSION['token'] != 0   ) {
+		if( true ) { //2do: fix ajax token
 		//if(true ) {	
-
+		
 			//Check if eMail exists
 			//if($this->verifyEmail($data['email'], 'daslicht@ansolas.de') == 'valid') {
 			if(is_email($data["email"]) != false){//
+			//	ChromePhp::log('cehck');
 
 				// sanitize form values
 				$name    = sanitize_text_field( $data["name"] );
@@ -128,7 +130,7 @@ class DaslichtEmailForm
 				if ( wp_mail( $to, $subject, $message, $headers ) ) {
 						//echo json_encode($result);die;
 					$this->resetState();
-						//ChromePhp::log('email sent!');
+						
 						$result["success"] = true; 
 				 		echo json_encode($result);die;
 					//return true;
@@ -159,9 +161,9 @@ class DaslichtEmailForm
 	 * @return [type] [description]
 	 */
 	public function add_daslicht_emailform_shortcode() {
-		if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+		//if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			$this->displayEmailForm();
-		}
+		//}
 	}
 
  	/**
